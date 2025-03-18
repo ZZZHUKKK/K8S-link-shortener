@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: backend
+  template:
+    metadata:
+      labels:
+        components: backend
+    spec:
+      containers:
+        - name: api
+          image: ghcr.io/zzzhukkk/api_links:v1.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DATABASEURL
+              valueFrom:
+                secretKeyRef:
+                  name: api-secret
+                  key: DATABASEURL
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "200m"

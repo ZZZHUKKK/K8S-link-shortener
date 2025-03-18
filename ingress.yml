@@ -17,3 +17,10 @@ spec:
             name: app-clusterip
             port: 
               number: 80
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: api-clusterip
+            port: 
+              number: 3000
