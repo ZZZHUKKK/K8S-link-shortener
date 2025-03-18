@@ -25,5 +25,5 @@ spec:
                   key: DATABASEURL
           resources:
             limits:
-              memory: "256Mi"
+              memory: "768Mi"
               cpu: "200m"
