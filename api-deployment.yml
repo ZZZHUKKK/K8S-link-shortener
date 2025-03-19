@@ -23,6 +23,15 @@ spec:
                 secretKeyRef:
                   name: api-secret
                   key: DATABASEURL
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - http://localhost:3000/api/
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 1
           resources:
             limits:
               memory: "768Mi"
