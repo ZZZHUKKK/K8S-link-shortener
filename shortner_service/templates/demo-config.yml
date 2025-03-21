@@ -1,0 +1,22 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-vonfig
+data:
+  {{- if eq .Values.env "re"  }}
+  Print: "12345"
+  {{- else }}
+  Print: false
+  {{- end }}
+  {{- with .Values.req.value.limits }}
+  memory: {{ .memory }}
+  cpu: {{.cpu }}
+  version: {{ $.Values.app.components }}
+  {{- end }}
+  {{- $map := .Release.Name | upper | quote }}
+  map: {{ $map }}
+  users:
+    {{- range $index, $user := .Values.users }}
+    - "{{ $user.name }}:{{ $user.role }} - {{ $index }}"
+    {{- end }}
