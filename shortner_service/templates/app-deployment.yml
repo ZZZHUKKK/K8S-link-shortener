@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: {{ .Values.app.name }}-deployment
 spec:
   replicas: {{ .Values.app.replicas }}
   selector:
@@ -13,7 +13,7 @@ spec:
         components: {{ .Values.app.components }}
     spec:
       containers:
-        - name: app
+        - name: {{ .Values.app.name }}
           image: "{{ .Values.app.image.image_name }}:{{ .Values.app.image.image_tag }}"
           ports:
             - containerPort: {{ .Values.app.containerport }}

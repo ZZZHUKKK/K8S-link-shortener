@@ -1,4 +1,5 @@
 app:
+  name: app
   replicas: 1
   components: frontend
   image:
@@ -9,16 +10,38 @@ app:
     memory: "128Mi"
     cpu: "200m"
 
-env: test
+api:
+  name: api
+  replicas: 1
+  components: backend
+  image:
+    image_name: ghcr.io/zzzhukkk/api_links
+    image_tag: v1.0
+  containerport: 3000
+  resources:
+    memory: "768Mi"
+    cpu: "200m"
+  env:
+    - DATABASEURL
 
-req:
- value:
-   limits:
-     memory: "128Mi"
-     cpu: "200m"
+postgres:
+  name: postgres
+  replicas: 1
+  components: postgres
+  image:
+    image_name: postgres
+    image_tag: 17.4
+  containerport: 5432
+  resources:
+    memory: "500Mi"
+    cpu: "300m"
+  env:
+    - POSTGRES_DB
+    - POSTGRES_USER
+    - POSTGRES_PASSWORD
 
-users:
- - name: vanya
-   role: admin
- - name: anton
-   role: manager
+base:
+  name: base
+  user: demo
+  password: demo
+  db: demo
