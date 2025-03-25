@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ .Release.Name }}-api-test"
+  labels:
+    components: "{{ .Values.api.components }}"
+  annotations:
+    "helm.sh/hook": test
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  containers:
+    - name: "{{ .Values.api.name }}-test-wget"
+      image: busybox
+      command: 
+        - /bin/sh
+      args: 
+        - -c 
+        - "wget --spider --timeout=3 -T 2 {{ .Values.api.name }}-clusterip:{{ .Values.api.containerport }}/api || exit 1"
+  restartPolicy: Never

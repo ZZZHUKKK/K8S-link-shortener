@@ -28,8 +28,8 @@ spec:
                 - curl
                 - --fail
                 - http://localhost:3000/api/
-            initialDelaySeconds: 60
+            initialDelaySeconds: 80
             periodSeconds: 10
-            failureThreshold: 1
+            failureThreshold: 2
           resources:
             limits: {{ .Values.api.resources | toYaml | nindent 14 }}
